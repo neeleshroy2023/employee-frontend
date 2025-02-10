@@ -3,10 +3,10 @@ import { createTheme } from "@mui/material";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#f44336",
+      main: "#8e2bd9",
     },
     secondary: {
-      main: "#3f51b5",
+      main: "#77d92b",
     },
   },
   typography: {
@@ -49,6 +49,13 @@ const theme = createTheme({
       fontSize: "0.83rem",
       fontFamily: "Nunito Sans",
       fontWeight: 400,
+    },
+  },
+  components: {
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
     },
   },
 });
