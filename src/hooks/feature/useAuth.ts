@@ -9,6 +9,9 @@ const useAuth = () => {
     const email = e.target.elements.registerEmail.value;
     const password = e.target.elements.registerPassword.value;
     const employeeId = e.target.elements.registerEmployeeId.value;
+    console.log(email);
+    console.log(password);
+    console.log(employeeId);
 
     fetch(`${import.meta.env.VITE_HOST_URL}${API_KEYS.register}`, {
       method: "POST",
