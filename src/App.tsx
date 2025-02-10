@@ -1,5 +1,5 @@
 import "./css/App.css";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { ThemeProvider, CssBaseline, Container } from "@mui/material";
 import theme from "./theme";
 import { BrowserRouter } from "react-router";
 import Router from "./components/features/navigation/Router";
@@ -9,7 +9,9 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <div className="App">
-          <Router />
+          <Container maxWidth="xl">
+            <Router />
+          </Container>
         </div>
       </BrowserRouter>
     </ThemeProvider>
