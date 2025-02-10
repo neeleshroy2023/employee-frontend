@@ -1,4 +1,5 @@
 import LandingPage from "./LandingPage";
-import Register from "./Register";
+import Login from "./Login";
+import Employees from "./Employees";
 
-export { LandingPage, Register };
+export { LandingPage, Login, Employees };
