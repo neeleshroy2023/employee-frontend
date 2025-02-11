@@ -17,7 +17,11 @@ const useApiRequest = (url: string, method = "GET") => {
       },
     });
 
-    const data = await res.json();
+    if(method === "DELETE"){
+      setLoading(false)
+      return;
+    }
+    const data = await res?.json();
 
     setData(data);
     setLoading(false);

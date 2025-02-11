@@ -6,12 +6,13 @@ import useGetRequest from "../../hooks/useApiRequest";
 import { Link } from "react-router";
 import { useEffect } from "react";
 
+
 const Employees = () => {
   const {
     data: employees,
     loading,
     error,
-    getData
+    getData,
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
 
   useEffect(() => {
@@ -20,11 +21,17 @@ const Employees = () => {
 
   if (loading) {
     return (
-      <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <CircularProgress />
-      </Box>
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </>
     );
   }
 

@@ -9,6 +9,7 @@ const Router = () => {
       <Route index element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
       <Route element={<PrivateRoute />}>
+        <Route path="/employees/:id" element={<Employees />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
       </Route>
