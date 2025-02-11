@@ -1,13 +1,22 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import EmployeeList from "../features/employees/EmployeeList";
 
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
-import { Link } from "react-router";
-import { useEffect } from "react";
+import { Link, useLocation } from "react-router";
+import { useEffect, useState } from "react";
 
 
 const Employees = () => {
+  const {pathname} = useLocation()
+  const [refresh, setRefrsh] = useState(true)
+  console.log(pathname)
+
+  useEffect(() => {
+    console.log("Rahul...")
+    setRefrsh(!refresh)
+  }, [pathname])
+
   const {
     data: employees,
     loading,
@@ -16,8 +25,8 @@ const Employees = () => {
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
 
   useEffect(() => {
-    getData();
-  }, []);
+      refresh && getData();
+  }, [refresh]);
 
   if (loading) {
     return (

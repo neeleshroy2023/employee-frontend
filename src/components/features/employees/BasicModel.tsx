@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import useApiRequest from "../../../hooks/useApiRequest";
 import API_KEYS from "../../../api/keys";
 import { useNavigate } from "react-router";
@@ -21,29 +21,32 @@ const style = {
 };
 
 type TfirstName = {
-  firstName: string,
-  id: string
-}
+  firstName: string;
+  id: string;
+};
 
-export default function BasicModal({firstName, id}) {
-  const {getData} = useApiRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}/${id}`, "DELETE")
-  const navigate = useNavigate()
+export default function BasicModal({ firstName, id }) {
+  const { getData } = useApiRequest(
+    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}/${id}`,
+    "DELETE"
+  );
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  console.log(open)
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const handleDelete = async() => {
-    
-    setOpen(false)
+  const handleDelete = async () => {
+    setOpen(false);
     const abc = await getData();
-    console.log(abc)
+    console.log(abc);
     navigate(-1);
-  }
+  };
 
   return (
     <div>
-      <Button color="secondary" onClick={handleOpen}>{firstName}</Button>
+      <Button color="secondary" onClick={handleOpen}>
+        {firstName}
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -54,9 +57,9 @@ export default function BasicModal({firstName, id}) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Employee Name : {firstName}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <DeleteIcon color="secondary" onClick={handleDelete} />
-          </Typography>
+          
+            <DeleteIcon color="secondary" sx={{cursor: "pointer"}} onClick={handleDelete} />
+          
         </Box>
       </Modal>
     </div>
