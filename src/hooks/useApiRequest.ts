@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-const useApiRequest = (url: string, method = "GET", options = {}) => {
+const useApiRequest = (url: string, method = "GET") => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<any>(null);
 
-  const getData = async () => {
+  const getData = async (options: any = {}) => {
     setLoading(true);
     const token = window.localStorage.getItem("token");
     const res = await fetch(url, {
@@ -17,21 +17,17 @@ const useApiRequest = (url: string, method = "GET", options = {}) => {
       },
     });
 
-    const data = await res.json();
+    if(method === "DELETE"){
+      setLoading(false)
+      return;
+    }
+    const data = await res?.json();
 
     setData(data);
     setLoading(false);
   };
 
-  useEffect(() => {
-    try {
-      getData();
-    } catch (error) {
-      setError(error);
-    }
-  }, [url]);
-
-  return { data, loading, error };
+  return { data, loading, error, getData };
 };
 
 export default useApiRequest;

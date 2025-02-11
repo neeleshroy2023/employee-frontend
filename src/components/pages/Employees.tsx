@@ -1,38 +1,41 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import EmployeeList from "../features/employees/EmployeeList";
+
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
+import { Link, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+
 
 const Employees = () => {
+  const {pathname} = useLocation()
+  const [refresh, setRefrsh] = useState(true)
+
   const {
     data: employees,
     loading,
     error,
+    getData,
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
-  // const getData = async () => {
-  //   const res = await securedFetch(
-  //     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-  //     {
-  //       body: JSON.stringify({}),
-  //     }
-  //   );
 
-  //   const data = await res.json();
-
-  //   console.log(data);
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+      refresh && getData();
+      setRefrsh(!refresh);
+  }, [pathname]);
 
   if (loading) {
     return (
-      <Box
-        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
-      >
-        <CircularProgress />
-      </Box>
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </>
     );
   }
 
@@ -42,7 +45,10 @@ const Employees = () => {
 
   return (
     <Box>
-      <Typography variant="h2">Employees</Typography>
+      <Box>
+        <Typography variant="h2">Employees</Typography>
+        <Link to="/addEmployee">Add Employ</Link>
+      </Box>
       <EmployeeList employees={employees} />
     </Box>
   );

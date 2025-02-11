@@ -9,6 +9,8 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
+import BasicModal from "./BasicModel";
+import { Link } from "react-router";
 
 type TEmployee = {
   id: string;
@@ -95,7 +97,8 @@ const EmployeeList = ({ employees }: TEmployeeList) => {
           {rows.map((row: TEmployee) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.firstName}
+                {/* {row.firstName} */}
+                <Link to={`/employees/${row.id}`}><BasicModal firstName={row.firstName} id={row.id}/></Link>
               </TableCell>
               <TableCell align="right">{row.lastName}</TableCell>
               <TableCell align="right">{row.email}</TableCell>
