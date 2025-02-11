@@ -10,12 +10,6 @@ import { useEffect, useState } from "react";
 const Employees = () => {
   const {pathname} = useLocation()
   const [refresh, setRefrsh] = useState(true)
-  console.log(pathname)
-
-  useEffect(() => {
-    console.log("Rahul...")
-    setRefrsh(!refresh)
-  }, [pathname])
 
   const {
     data: employees,
@@ -26,7 +20,8 @@ const Employees = () => {
 
   useEffect(() => {
       refresh && getData();
-  }, [refresh]);
+      setRefrsh(!refresh);
+  }, [pathname]);
 
   if (loading) {
     return (

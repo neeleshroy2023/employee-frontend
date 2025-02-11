@@ -39,7 +39,7 @@ export default function BasicModal({ firstName, id }) {
     setOpen(false);
     const abc = await getData();
     console.log(abc);
-    navigate(-1);
+    navigate("/employees");
   };
 
   return (
