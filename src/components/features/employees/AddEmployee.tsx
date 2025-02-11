@@ -7,9 +7,9 @@ import {
   FormControl,
   CircularProgress,
 } from "@mui/material";
-import API_KEYS from "../../api/keys";
+import API_KEYS from "../../../api/keys";
 import { useNavigate } from "react-router";
-import useApiRequest from "../../hooks/useApiRequest";
+import useApiRequest from "../../../hooks/useApiRequest";
 
 const AddEmployee = () => {
   const navigate = useNavigate();

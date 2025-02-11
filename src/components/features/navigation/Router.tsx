@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import { LandingPage, Login, Employees } from "../../pages";
-import AddEmployee from "../../pages/AddEmployee";
+import AddEmployee from "../employees/AddEmployee";
 import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {

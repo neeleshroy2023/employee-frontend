@@ -11,8 +11,10 @@ import {
 } from "@mui/material";
 import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
+import { useNavigate } from "react-router";
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   const { handleRegister } = useAuth();
   return (
     <Box
@@ -64,9 +66,18 @@ const LandingPage = () => {
                     />
                   </FormControl>
                   <FormControl sx={{ mb: "16px" }} fullWidth>
-                    <Button type="submit" variant="contained">
-                      Sign Up
-                    </Button>
+                    <Box display="flex" justifyContent="space-between">
+                      <Button type="submit" variant="contained">
+                        Sign Up
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="contained"
+                        onClick={() => navigate("/login")}
+                      >
+                        Sign In
+                      </Button>
+                    </Box>
                   </FormControl>
                 </form>
               </CardContent>

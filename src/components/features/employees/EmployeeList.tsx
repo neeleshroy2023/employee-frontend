@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TableContainer,
   Paper,
@@ -11,17 +11,22 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router";
+import EmployeeModal from "./EmployeeModal";
 
-const EmployeeList = ({ employees }) => {
+const EmployeeList = ({ employees, onDeleteEmployee }) => {
   const navigate = useNavigate();
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  const handleAddEmployee = () => {
-    navigate("/add-employee");
+  const handleModalOpen = (employee) => {
+    setSelectedEmployee(employee);
+    setOpenModal(true);
   };
 
-  if (employees.length === 0) {
-    return <Box>No employees found</Box>;
-  }
+  const handleModalClose = () => {
+    setOpenModal(false);
+    setSelectedEmployee(null);
+  };
 
   return (
     <Box>
@@ -29,7 +34,7 @@ const EmployeeList = ({ employees }) => {
         variant="contained"
         color="primary"
         sx={{ marginTop: 1, marginBottom: 1 }}
-        onClick={handleAddEmployee}
+        onClick={() => navigate("/add-employee")}
       >
         Add New Employee
       </Button>
@@ -48,20 +53,44 @@ const EmployeeList = ({ employees }) => {
           </TableHead>
           <TableBody>
             {employees.map((employee) => (
-              <TableRow key={employee.id}>
+              <TableRow
+                key={employee.id}
+                onClick={() => {
+                  handleModalOpen(employee);
+                }}
+              >
                 <TableCell component="th" scope="row">
                   {employee.firstName}
                 </TableCell>
-                <TableCell align="right">{employee.lastName}</TableCell>
-                <TableCell align="right">{employee.email}</TableCell>
-                <TableCell align="right">{employee.position}</TableCell>
-                <TableCell align="right">{employee.department}</TableCell>
-                <TableCell align="right">{employee.salary}</TableCell>
+                <TableCell component="th" scope="row">
+                  {employee.lastName}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {employee.email}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {employee.position}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {employee.department}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {employee.salary}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {selectedEmployee && (
+        <EmployeeModal
+          open={openModal}
+          handleClose={handleModalClose}
+          employee={selectedEmployee}
+          onDelete={onDeleteEmployee}
+        />
+      )}
     </Box>
   );
 };
