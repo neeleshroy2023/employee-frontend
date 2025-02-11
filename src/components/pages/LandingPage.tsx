@@ -13,7 +13,7 @@ import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
 
 const LandingPage = () => {
-  const { handleRegister } = useAuth();
+  const { handleRegister, err } = useAuth();
   return (
     <Box
       sx={{
@@ -63,6 +63,7 @@ const LandingPage = () => {
                       type="number"
                     />
                   </FormControl>
+                  {err && <Typography>{err}</Typography>}
                   <FormControl sx={{ mb: "16px" }} fullWidth>
                     <Button type="submit" variant="contained">
                       Sign Up

@@ -21,6 +21,8 @@ const AddEmployee = () => {
     "POST"
   );
 
+  console.log(error, loading)
+
   const handleFormSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     await getData({
