@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router";
 import { LandingPage, Login, Employees } from "../../pages";
 import PrivateRoute from "./PrivateRoute";
-import AddEmployee from "../../pages/AddEmployee";
+import AddEmployee from "../employees/AddEmployee";
 
 const Router = () => {
   return (
