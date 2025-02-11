@@ -2,29 +2,19 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import EmployeeList from "../features/employees/EmployeeList";
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
+import { useEffect } from "react";
 
 const Employees = () => {
   const {
     data: employees,
     loading,
     error,
+    getData,
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
-  // const getData = async () => {
-  //   const res = await securedFetch(
-  //     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-  //     {
-  //       body: JSON.stringify({}),
-  //     }
-  //   );
 
-  //   const data = await res.json();
-
-  //   console.log(data);
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  useEffect(() => {
+    getData();
+  }, []);
 
   if (loading) {
     return (
