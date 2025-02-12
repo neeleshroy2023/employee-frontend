@@ -11,9 +11,17 @@ import {
 } from "@mui/material";
 import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const LandingPage = () => {
   const { handleRegister, err } = useAuth();
+  const {isUser, setIsUser}:any = useContext(UserContext)
+  console.log(isUser)
+
+  useEffect(() => {
+    setIsUser(true)
+  }, [])
   return (
     <Box
       sx={{
