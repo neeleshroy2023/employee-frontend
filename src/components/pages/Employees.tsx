@@ -6,10 +6,9 @@ import useGetRequest from "../../hooks/useApiRequest";
 import { Link, useLocation } from "react-router";
 import { useEffect, useState } from "react";
 
-
 const Employees = () => {
-  const {pathname} = useLocation()
-  const [refresh, setRefrsh] = useState(true)
+  const { pathname } = useLocation();
+  const [refresh, setRefrsh] = useState(true);
 
   const {
     data: employees,
@@ -19,8 +18,8 @@ const Employees = () => {
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
 
   useEffect(() => {
-      refresh && getData();
-      setRefrsh(!refresh);
+    refresh && getData();
+    setRefrsh(!refresh);
   }, [pathname]);
 
   if (loading) {

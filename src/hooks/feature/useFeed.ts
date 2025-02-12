@@ -6,11 +6,7 @@ const useFeed = async () => {
     API_KEYS.employees
   );
 
-  console.log(data);
-
   const employeesData = await data.json();
-
-  console.log(employeesData);
 
   return employeesData;
 };

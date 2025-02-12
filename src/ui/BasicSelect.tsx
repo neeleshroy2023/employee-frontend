@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,28 +5,21 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { CircularProgress, Typography } from "@mui/material";
 import { useSelect } from "../hooks/feature/useSelect";
+import { TbasicSelectProps } from "../types/uiType";
 
-type TbasicSectProps = {
-    id: string,
-    handleChange: (e) => void,
-    departments: string
-}
+export default function BasicSelect({
+  id,
+  handleChange,
+  departments,
+}: TbasicSelectProps) {
+  const { data, error, loading } = useSelect();
 
-export default function BasicSelect({id, handleChange, departments}: TbasicSectProps) {
-//   const [age, setAge] = useState("");
-const {data, error, loading} = useSelect()
-
-//   const handleChange = (event) => {
-//     console.log(event.target.value);
-//     setAge(event.target.value);
-//   };
-
-  if(error){
-    return <Typography>{error.message}</Typography>
+  if (error) {
+    return <Typography>{error.message}</Typography>;
   }
 
-  if(loading){
-    return <CircularProgress />
+  if (loading) {
+    return <CircularProgress />;
   }
 
   return (
@@ -41,8 +33,10 @@ const {data, error, loading} = useSelect()
           label="Age"
           onChange={handleChange}
         >
-          {data.map((employee) => (
-            <MenuItem key={employee?.id} id={id} value={employee?.id}>{employee?.id}</MenuItem>
+          {data.map((employee: any) => (
+            <MenuItem key={employee?.id} id={id} value={employee?.id}>
+              {employee?.id}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>

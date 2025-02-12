@@ -9,24 +9,9 @@ import {
   CircularProgress,
   Box,
 } from "@mui/material";
-import BasicModal from "./BasicModel";
+import BasicModal from "../../../ui/BasicModal";
 import { Link } from "react-router";
-
-type TEmployee = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  position: string;
-  department: string;
-  salary: number;
-  status: string;
-  hireDate: string;
-};
-
-type TEmployeeList = {
-  employees: TEmployee[];
-};
+import { TEmployee, TEmployeeList } from "../../../types/uiType";
 
 const EmployeeList = ({ employees }: TEmployeeList) => {
   if (employees.length === 0) {
@@ -97,7 +82,6 @@ const EmployeeList = ({ employees }: TEmployeeList) => {
           {rows.map((row: TEmployee) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {/* {row.firstName} */}
                 <Link to={`/employees/${row.id}`}><BasicModal firstName={row.firstName} id={row.id}/></Link>
               </TableCell>
               <TableCell align="right">{row.lastName}</TableCell>

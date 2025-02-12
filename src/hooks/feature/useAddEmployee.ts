@@ -11,7 +11,7 @@ export const useAddEmployee = () => {
     "POST"
   );
 
-  const handleChange = (event) => {
+  const handleChange = (event: any) => {
     setDepartments(event.target.value);
   };
 
