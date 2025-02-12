@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router";
 import API_KEYS from "../../api/keys";
+import { useState } from "react";
 
 const useAuth = () => {
+  const [err, setError] = useState(false);
   const navigate = useNavigate();
   const handleRegister = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
@@ -19,9 +21,13 @@ const useAuth = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate("/login", {
-          state: { email: data.email },
-        });
+        if (data.error) {
+          setError(data.error);
+        } else {
+          navigate("/login", {
+            state: { email: data.email },
+          });
+        }
       });
   };
 
@@ -44,7 +50,7 @@ const useAuth = () => {
       });
   };
 
-  return { handleRegister, handleLogin };
+  return { handleRegister, handleLogin, err };
 };
 
 export default useAuth;
