@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const useApiRequest = (url: string, method = "GET") => {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const getData = async (options: any = {}) => {

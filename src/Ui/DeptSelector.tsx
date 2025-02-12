@@ -7,36 +7,38 @@ import Select from "@mui/material/Select";
 import useApiRequest from "../hooks/useApiRequest";
 import API_KEYS from "../api/keys";
 
-export default function Department() {
-  const [departments, setDepartments] = useState([]);
-  console.log(departments);
-  const { getData } = useApiRequest(
+export default function DeptSelector({ onDeptChange }: any) {
+  const { getData, data } = useApiRequest(
     `${import.meta.env.VITE_HOST_URL}${API_KEYS?.departments}`
   );
+  console.log(data);
   useEffect(() => {
-    const func = async () => {
+    const fetchDepartments = async () => {
       await getData();
     };
-    func();
+    fetchDepartments();
   }, []);
   const handleChange = (event: any) => {
-    setDepartments(event.target.value);
+    onDeptChange(event.target.value);
   };
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Department</InputLabel>
+        <InputLabel id="demo-simple-select-label">Select Department</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={departments}
-          label="Department"
+          label={"Departments"}
           onChange={handleChange}
         >
-          <MenuItem value={"dept-1"}>dept-1</MenuItem>
-          <MenuItem value={"dept-2"}>dept-2</MenuItem>
-          <MenuItem value={"dept-3"}>dept-3</MenuItem>
+          {data.map((employee: any) => {
+            return (
+              <MenuItem key={employee.id} value={employee.id}>
+                {employee.id}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </Box>

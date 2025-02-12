@@ -28,7 +28,12 @@ const useAddEmployee = () => {
       [name]: value,
     }));
   };
-
+  const handleDeptChange = (department: string) => {
+    setNewEmployee((prevState) => ({
+      ...prevState,
+      department: department,
+    }));
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -69,6 +74,7 @@ const useAddEmployee = () => {
     error,
     handleChange,
     handleSubmit,
+    handleDeptChange,
   };
 };
 

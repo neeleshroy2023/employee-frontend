@@ -7,13 +7,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import useAddEmployee from "../../../hooks/useAddEmployee";
-// import Department from "../../pages/Department";
-import { useNavigate } from "react-router";
+import DeptSelector from "../../../Ui/DeptSelector";
 
 const AddEmployee = () => {
-  const navigate = useNavigate();
-  const { newEmployee, loading, error, handleChange, handleSubmit } =
-    useAddEmployee();
+  const {
+    newEmployee,
+    loading,
+    error,
+    handleChange,
+    handleSubmit,
+    handleDeptChange,
+  } = useAddEmployee();
+
   if (loading) {
     return <CircularProgress />;
   }
@@ -64,14 +69,7 @@ const AddEmployee = () => {
           />
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
-          <TextField
-            label="Department"
-            name="department"
-            value={newEmployee.department}
-            onChange={handleChange}
-            required
-          />
-          {/* <Department /> */}
+          <DeptSelector onDeptChange={handleDeptChange} />
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <TextField
