@@ -1,31 +1,49 @@
-import * as React from "react";
+// import { useState } from "react";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { CircularProgress, Typography } from "@mui/material";
+import { useSelect } from "../hooks/feature/useSelect";
 
-export default function BasicSelect() {
-  const [age, setAge] = React.useState("");
+type TbasicSectProps = {
+    id: string,
+    handleChange: (e) => void,
+    department: string
+}
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+export default function BasicSelect({id, handleChange, department}: TbasicSectProps) {
+//   const [age, setAge] = useState("");
+const {data, error, loading} = useSelect()
+
+//   const handleChange = (event) => {
+//     console.log(event.target.value);
+//     setAge(event.target.value);
+//   };
+
+  if(error){
+    return <Typography>{error.message}</Typography>
+  }
+
+  if(loading){
+    return <CircularProgress />
+  }
 
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ mb: "16px" }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Departments</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={department}
           label="Age"
           onChange={handleChange}
         >
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {data.map((employee) => (
+            <MenuItem key={employee?.id} id={id} value={employee?.id}>{employee?.id}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import theme from "../../../theme";
 import API_KEYS from "../../../api/keys";
 import useApiRequest from "../../../hooks/useApiRequest";
@@ -16,6 +16,8 @@ import { useNavigate } from "react-router";
 import BasicSelect from "../../../ui/BasicSelect";
 
 const AddEmployee = () => {
+  const [department, setDepartment] = useState("");
+  console.log(department);
   const navigate = useNavigate();
   const { loading, error, getData } = useApiRequest(
     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
@@ -30,19 +32,23 @@ const AddEmployee = () => {
         lastName: e.target.elements.lastName.value,
         email: e.target.elements.email.value,
         position: e.target.elements.position.value,
-        department: e.target.elements.department.value,
+        department,
         salary: e.target.elements.salary.value,
       }),
     });
     navigate("/employees");
   };
 
-  if(loading){
-    return <CircularProgress />
+  const handleChange = (event) => {
+    setDepartment(event.target.value);
+  };
+
+  if (loading) {
+    return <CircularProgress />;
   }
 
-  if(error){
-    return <Typography>{error.message}</Typography>
+  if (error) {
+    return <Typography>{error.message}</Typography>;
   }
 
   return (
@@ -72,10 +78,11 @@ const AddEmployee = () => {
             <FormControl sx={{ mb: "16px" }} fullWidth>
               <TextField id="position" placeholder="Position" type="text" />
             </FormControl>
-            <FormControl sx={{ mb: "16px" }} fullWidth>
-              <TextField id="department" placeholder="Department" type="text" />
-            </FormControl>
-            <BasicSelect />
+            <BasicSelect
+              id="department"
+              handleChange={handleChange}
+              department={department}
+            />
             <FormControl sx={{ mb: "16px" }} fullWidth>
               <TextField id="salary" placeholder="Salary" type="number" />
             </FormControl>
@@ -85,7 +92,6 @@ const AddEmployee = () => {
               </Button>
             </FormControl>
           </form>
-
         </CardContent>
       </Card>
     </Grid2>
