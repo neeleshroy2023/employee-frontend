@@ -13,8 +13,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router";
+import { profileImg } from "../utils/constant";
 
-const pages = ["Home", "Dipartment", "Employee", "Login"];
+const pages = ["Home", "Dipartment", "Employees", "Login"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
@@ -117,7 +118,7 @@ function Navbar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                // sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 <Link
                   to={`/${page === "Home" ? "" : page.toLocaleLowerCase()}`}
@@ -130,7 +131,7 @@ function Navbar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={profileImg} />
               </IconButton>
             </Tooltip>
             <Menu
