@@ -10,10 +10,10 @@ import { useSelect } from "../hooks/feature/useSelect";
 type TbasicSectProps = {
     id: string,
     handleChange: (e) => void,
-    department: string
+    departments: string
 }
 
-export default function BasicSelect({id, handleChange, department}: TbasicSectProps) {
+export default function BasicSelect({id, handleChange, departments}: TbasicSectProps) {
 //   const [age, setAge] = useState("");
 const {data, error, loading} = useSelect()
 
@@ -37,7 +37,7 @@ const {data, error, loading} = useSelect()
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={department}
+          value={departments}
           label="Age"
           onChange={handleChange}
         >

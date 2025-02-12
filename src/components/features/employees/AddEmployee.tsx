@@ -8,40 +8,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+
 import theme from "../../../theme";
-import API_KEYS from "../../../api/keys";
-import useApiRequest from "../../../hooks/useApiRequest";
-import { useNavigate } from "react-router";
 import BasicSelect from "../../../ui/BasicSelect";
+import { useAddEmployee } from "../../../hooks/feature/useAddEmployee";
 
 const AddEmployee = () => {
-  const [department, setDepartment] = useState("");
-  console.log(department);
-  const navigate = useNavigate();
-  const { loading, error, getData } = useApiRequest(
-    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-    "POST"
-  );
-
-  const handleFormSubmit = async (e: React.BaseSyntheticEvent) => {
-    e.preventDefault();
-    await getData({
-      body: JSON.stringify({
-        firstName: e.target.elements.firstName.value,
-        lastName: e.target.elements.lastName.value,
-        email: e.target.elements.email.value,
-        position: e.target.elements.position.value,
-        department,
-        salary: e.target.elements.salary.value,
-      }),
-    });
-    navigate("/employees");
-  };
-
-  const handleChange = (event) => {
-    setDepartment(event.target.value);
-  };
+  const { departments, loading, error, handleChange, handleFormSubmit } =
+    useAddEmployee();
 
   if (loading) {
     return <CircularProgress />;
@@ -81,7 +55,7 @@ const AddEmployee = () => {
             <BasicSelect
               id="department"
               handleChange={handleChange}
-              department={department}
+              departments={departments}
             />
             <FormControl sx={{ mb: "16px" }} fullWidth>
               <TextField id="salary" placeholder="Salary" type="number" />
