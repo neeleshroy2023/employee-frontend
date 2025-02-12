@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
@@ -29,14 +29,14 @@ const AddEmployee = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setNewEmployee((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -63,7 +63,7 @@ const AddEmployee = () => {
       }
 
       navigate("/employees");
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     } finally {
       setLoading(false);

@@ -1,4 +1,3 @@
-import React from "react";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import useApiRequest from "../../../hooks/useApiRequest";
 import API_KEYS from "../../../api/keys";
@@ -14,21 +13,32 @@ const modalStyle = {
   p: 4,
 };
 
-const EmployeeModal = ({ open, handleClose, employee }) => {
-  const handleDelete = () => {};
+const EmployeeModal = ({
+  open,
+  handleClose,
+  employee,
+  onDeleteEmployee,
+}: any) => {
+  const { deleteData } = useApiRequest(
+    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}/${employee.id}`,
+    "DELETE"
+  );
+
+  const handleDelete = async () => {
+    try {
+      await deleteData();
+      onDeleteEmployee(employee.id);
+      handleClose();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
+    <Modal open={open} onClose={handleClose}>
       <Box sx={modalStyle}>
-        <Typography variant="h6" id="modal-modal-title">
-          Employee Details
-        </Typography>
-        <Typography sx={{ mt: 2 }} id="modal-modal-description">
+        <Typography variant="h6">Employee Details</Typography>
+        <Typography sx={{ mt: 2 }}>
           Name: {employee.firstName} {employee.lastName}
         </Typography>
         <Typography sx={{ mt: 1 }}>Email: {employee.email}</Typography>
@@ -37,7 +47,6 @@ const EmployeeModal = ({ open, handleClose, employee }) => {
           Department: {employee.department}
         </Typography>
         <Typography sx={{ mt: 1 }}>Salary: {employee.salary}</Typography>
-
         <Button
           variant="contained"
           color="error"

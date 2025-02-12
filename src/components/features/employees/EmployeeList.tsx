@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   TableContainer,
   Paper,
@@ -13,12 +13,12 @@ import {
 import { useNavigate } from "react-router";
 import EmployeeModal from "./EmployeeModal";
 
-const EmployeeList = ({ employees, onDeleteEmployee }) => {
+const EmployeeList = ({ employees, onDeleteEmployee }: any) => {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  const handleModalOpen = (employee) => {
+  const handleModalOpen = (employee: any) => {
     setSelectedEmployee(employee);
     setOpenModal(true);
   };
@@ -52,31 +52,17 @@ const EmployeeList = ({ employees, onDeleteEmployee }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((employee) => (
+            {employees.map((employee: any) => (
               <TableRow
                 key={employee.id}
-                onClick={() => {
-                  handleModalOpen(employee);
-                }}
+                onClick={() => handleModalOpen(employee)}
               >
-                <TableCell component="th" scope="row">
-                  {employee.firstName}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {employee.lastName}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {employee.email}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {employee.position}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {employee.department}
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {employee.salary}
-                </TableCell>
+                <TableCell>{employee.firstName}</TableCell>
+                <TableCell align="right">{employee.lastName}</TableCell>
+                <TableCell align="right">{employee.email}</TableCell>
+                <TableCell align="right">{employee.position}</TableCell>
+                <TableCell align="right">{employee.department}</TableCell>
+                <TableCell align="right">{employee.salary}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -88,7 +74,7 @@ const EmployeeList = ({ employees, onDeleteEmployee }) => {
           open={openModal}
           handleClose={handleModalClose}
           employee={selectedEmployee}
-          onDelete={onDeleteEmployee}
+          onDeleteEmployee={onDeleteEmployee}
         />
       )}
     </Box>

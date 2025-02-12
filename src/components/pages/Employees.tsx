@@ -5,12 +5,9 @@ import useGetRequest from "../../hooks/useApiRequest";
 import { useEffect } from "react";
 
 const Employees = () => {
-  const {
-    data: employees,
-    loading,
-    error,
-    getData,
-  } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
+  const { data, loading, error, getData }: any = useGetRequest(
+    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`
+  );
 
   useEffect(() => {
     getData();
@@ -30,10 +27,17 @@ const Employees = () => {
     return <Typography>Error: {error.message}</Typography>;
   }
 
+  const onDeleteEmployee = (employeeId: any) => {
+    const updatedEmployees = data.filter(
+      (employee: any) => employee.id !== employeeId
+    );
+    getData(updatedEmployees);
+  };
+
   return (
     <Box>
       <Typography variant="h2">Employees</Typography>
-      <EmployeeList employees={employees} />
+      <EmployeeList employees={data} onDeleteEmployee={onDeleteEmployee} />
     </Box>
   );
 };
