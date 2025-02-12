@@ -42,9 +42,9 @@ const AddEmployee = () => {
   //   return <CircularProgress />
   // }
 
-  // if(error){
-  //   return <Typography>{error.message}</Typography>
-  // }
+  if(error){
+    return <Typography>{error.message}</Typography>
+  }
 
   return (
     <Grid2 size={{ xs: 12, sm: 6, md: 4 }}>

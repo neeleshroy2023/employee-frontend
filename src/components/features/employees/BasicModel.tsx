@@ -21,11 +21,11 @@ const style = {
 };
 
 type TfirstName = {
-  firstName: string;
-  id: string;
+  firstName: string,
+  id: string,
 };
 
-export default function BasicModal({ firstName, id }) {
+export default function BasicModal({ firstName, id }: TfirstName) {
   const { getData } = useApiRequest(
     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}/${id}`,
     "DELETE"
