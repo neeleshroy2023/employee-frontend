@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Box,
   TextField,
@@ -7,75 +6,17 @@ import {
   FormControl,
   CircularProgress,
 } from "@mui/material";
-import API_KEYS from "../../../api/keys";
+import useAddEmployee from "../../../hooks/useAddEmployee";
+// import Department from "../../pages/Department";
 import { useNavigate } from "react-router";
-import useApiRequest from "../../../hooks/useApiRequest";
 
 const AddEmployee = () => {
   const navigate = useNavigate();
-  const { getData } = useApiRequest(
-    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-    "POST"
-  );
-  const [newEmployee, setNewEmployee] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    position: "",
-    department: "",
-    salary: "",
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    setNewEmployee((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    await getData({
-      body: JSON.stringify(newEmployee),
-    });
-    navigate("/employees");
-    console.log(newEmployee);
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-        {
-          method: "POST",
-          body: JSON.stringify(newEmployee),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("failed");
-      }
-
-      navigate("/employees");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  const { newEmployee, loading, error, handleChange, handleSubmit } =
+    useAddEmployee();
   if (loading) {
     return <CircularProgress />;
   }
-  const handleNavigate = () => {
-    navigate("/employees");
-  };
 
   return (
     <Box
@@ -130,6 +71,7 @@ const AddEmployee = () => {
             onChange={handleChange}
             required
           />
+          {/* <Department /> */}
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <TextField
@@ -142,14 +84,6 @@ const AddEmployee = () => {
         </FormControl>
         <Button type="submit" variant="contained">
           Add Employee
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleNavigate}
-          sx={{ marginLeft: 9 }}
-        >
-          Return to Employee
         </Button>
       </form>
 
