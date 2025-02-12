@@ -13,6 +13,7 @@ import theme from "../../../theme";
 import API_KEYS from "../../../api/keys";
 import useApiRequest from "../../../hooks/useApiRequest";
 import { useNavigate } from "react-router";
+import BasicSelect from "../../../ui/BasicSelect";
 
 const AddEmployee = () => {
   const navigate = useNavigate();
@@ -20,8 +21,6 @@ const AddEmployee = () => {
     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
     "POST"
   );
-
-  console.log(error, loading)
 
   const handleFormSubmit = async (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
@@ -38,9 +37,9 @@ const AddEmployee = () => {
     navigate("/employees");
   };
 
-  // if(loading){
-  //   return <CircularProgress />
-  // }
+  if(loading){
+    return <CircularProgress />
+  }
 
   if(error){
     return <Typography>{error.message}</Typography>
@@ -76,6 +75,7 @@ const AddEmployee = () => {
             <FormControl sx={{ mb: "16px" }} fullWidth>
               <TextField id="department" placeholder="Department" type="text" />
             </FormControl>
+            <BasicSelect />
             <FormControl sx={{ mb: "16px" }} fullWidth>
               <TextField id="salary" placeholder="Salary" type="number" />
             </FormControl>
