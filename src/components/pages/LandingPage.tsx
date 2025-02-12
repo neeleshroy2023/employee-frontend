@@ -13,15 +13,19 @@ import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router";
 
 const LandingPage = () => {
   const { handleRegister, err } = useAuth();
-  const {isUser, setIsUser}:any = useContext(UserContext)
-  console.log(isUser)
+  const { isUser }: any = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsUser(true)
-  }, [])
+    if (isUser) {
+      navigate("/employees");
+    }
+  }, []);
+
   return (
     <Box
       sx={{

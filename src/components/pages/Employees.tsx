@@ -3,11 +3,20 @@ import EmployeeList from "../features/employees/EmployeeList";
 
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
-import { Link, useLocation } from "react-router";
-import { useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const Employees = () => {
   const { pathname } = useLocation();
+  const {isUser}:any = useContext(UserContext)
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!isUser){
+      navigate("/login");
+    }
+  }, [])
 
   const {
     data: employees,
@@ -57,7 +66,7 @@ const Employees = () => {
     <Box>
       <Box>
         <Typography variant="h2">Employees</Typography>
-        <Link to="/addEmployee">Add Employ</Link>
+        <Link className="addEmp" to="/addEmployee">Add Employ</Link>
       </Box>
       <EmployeeList employees={employees} />
     </Box>
