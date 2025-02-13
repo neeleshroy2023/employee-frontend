@@ -24,7 +24,7 @@ function Navbar() {
   if(isUser){
      pages = pages.filter((page) => (page !== "Login"))
   }
-  console.log(isUser)
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

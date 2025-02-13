@@ -17,14 +17,14 @@ import { useNavigate } from "react-router";
 
 const LandingPage = () => {
   const { handleRegister, err } = useAuth();
-  const { isUser }: any = useContext(UserContext);
-  const navigate = useNavigate();
+  // const { isUser }: any = useContext(UserContext);
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isUser) {
-      navigate("/employees");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isUser) {
+  //     navigate("/employees");
+  //   }
+  // }, []);
 
   return (
     <Box
