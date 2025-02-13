@@ -3,3 +3,7 @@
   background: -webkit-linear-gradient(to top, #a7bfe8, #6190e8);
   background: linear-gradient(to top, #a7bfe8, #6190e8);
 }
+.link {
+  text-decoration: none;
+  color: white;
+}

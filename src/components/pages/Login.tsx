@@ -18,7 +18,7 @@ const Login = () => {
   const { email } = location.state || { email: "" };
   return (
     <Container maxWidth="xl">
-      <Grid2 container spacing={4}>
+      <Grid2 container spacing={4} sx={{ marginTop: 4 }}>
         <Grid2 size={{ xs: 12, sm: 6, md: 8 }}>
           <h1>Employee Management</h1>
         </Grid2>

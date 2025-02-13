@@ -4,8 +4,21 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
+import { Link } from "react-router";
+import "./../css/App.css";
+import { useContext } from "react";
+import { UserContext } from "../Context/UserContext";
+
+let pages = ["Home", "Employees", "Department", "Login"];
 
 function Navbar() {
+  const { isUser }: any = useContext(UserContext);
+  if (isUser) {
+    pages = pages.filter((item) => {
+      return item !== "Login";
+    });
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -14,7 +27,6 @@ function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -28,18 +40,26 @@ function Navbar() {
             Utils
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Home
-            </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Employees{" "}
-            </Button>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Departments
-            </Button>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            {pages.map((page) => (
+              <Button
+                key={page}
+                sx={{ textDecoration: "none", color: "white" }}
+              >
+                <Link
+                  className="link"
+                  to={`/${page === "Home" ? "" : page.toLowerCase()}`}
+                >
+                  {page}
+                </Link>
+              </Button>
+            ))}
           </Box>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </Container>
     </AppBar>

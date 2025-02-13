@@ -2,14 +2,15 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import EmployeeList from "../features/employees/EmployeeList";
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const Employees = () => {
+  const { isUser }: any = useContext(UserContext);
+  console.log(isUser);
   const { data, loading, error, getData }: any = useGetRequest(
     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`
   );
-  const navigate = useNavigate();
   useEffect(() => {
     getData();
   }, []);
@@ -35,12 +36,6 @@ const Employees = () => {
     getData(updatedEmployees);
   };
 
-  const onBtnClick = () => {
-    navigate("/login");
-  };
-  const onBtnHomeClick = () => {
-    navigate("/");
-  };
   return (
     <Box>
       <EmployeeList employees={data} onDeleteEmployee={onDeleteEmployee} />
