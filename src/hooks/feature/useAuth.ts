@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router";
 import API_KEYS from "../../api/keys";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/UserContext";
 
 const useAuth = () => {
+  const {isUser, setIsUser}:any = useContext(UserContext)
+  const [err, setError] = useState(false);
   const navigate = useNavigate();
   const handleRegister = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
@@ -19,9 +23,13 @@ const useAuth = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        navigate("/login", {
-          state: { email: data.email },
-        });
+        if (data.error) {
+          setError(data.error);
+        } else {
+          navigate("/login", {
+            state: { email: data.email },
+          });
+        }
       });
   };
 
@@ -40,11 +48,20 @@ const useAuth = () => {
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem("token", data.token || "");
-        navigate("/employees");
+        console.log(data);
+        if(data?.error){
+          setIsUser(false);
+        }
+        if(data?.user){
+          setIsUser(true);
+          navigate("/employees");
+        }
+        console.log(isUser);
+        // navigate("/employees");
       });
   };
 
-  return { handleRegister, handleLogin };
+  return { handleRegister, handleLogin, err };
 };
 
 export default useAuth;

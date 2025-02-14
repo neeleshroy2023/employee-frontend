@@ -11,9 +11,21 @@ import {
 } from "@mui/material";
 import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
+import { useNavigate } from "react-router";
 
 const LandingPage = () => {
-  const { handleRegister } = useAuth();
+  const { handleRegister, err } = useAuth();
+  // const { isUser }: any = useContext(UserContext);
+  // const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (isUser) {
+  //     navigate("/employees");
+  //   }
+  // }, []);
+
   return (
     <Box
       sx={{
@@ -63,6 +75,7 @@ const LandingPage = () => {
                       type="number"
                     />
                   </FormControl>
+                  {err && <Typography>{err}</Typography>}
                   <FormControl sx={{ mb: "16px" }} fullWidth>
                     <Button type="submit" variant="contained">
                       Sign Up
