@@ -64,9 +64,11 @@ const LandingPage = () => {
                     />
                   </FormControl>
                   <FormControl sx={{ mb: "16px" }} fullWidth>
-                    <Button type="submit" variant="contained">
-                      Sign Up
-                    </Button>
+                    <Box display="flex" justifyContent="space-between">
+                      <Button type="submit" variant="contained">
+                        Sign Up
+                      </Button>
+                    </Box>
                   </FormControl>
                 </form>
               </CardContent>
