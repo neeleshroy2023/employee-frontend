@@ -7,3 +7,34 @@
   text-decoration: none;
   color: white;
 }
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.div1 {
+  background-color: white;
+  box-shadow: 2px 4px 4px 5px rgb(0, 0, 0, 0.1);
+  padding: 10px;
+}
+.div2 {
+  background-color: white;
+  box-shadow: 2px 4px 4px 5px rgb(0, 0, 0, 0.1);
+  padding: 10px;
+}
+.div1 p {
+  background-color: rgb(122, 209, 122);
+  border: 1px solid black;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.div2 p {
+  background-color: rgb(201, 185, 98);
+  border: 1px solid black;
+  height: 30px;
+  border-radius: 5px;
+  cursor: pointer;
+}
