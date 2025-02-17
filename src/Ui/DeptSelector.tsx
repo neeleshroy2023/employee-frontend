@@ -18,7 +18,7 @@ export default function DeptSelector({ onDeptChange }: any) {
     };
     fetchDepartments();
   }, []);
-  const handleChange = (event: any) => {
+  i  const handleChange = (event: any) => {
     onDeptChange(event.target.value);
   };
 

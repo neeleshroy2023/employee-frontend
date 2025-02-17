@@ -14,21 +14,25 @@ const Todolist = () => {
 
   const handleDrop = (id: number, completed: boolean) => {
     setTodo((prevTodos: Todo[]) =>
-      prevTodos.map((t: Todo) => (t.id === id ? { ...t, completed: !completed } : t))
+      prevTodos.map((t: Todo) =>
+        t.id === id ? { ...t, completed: !completed } : t
+      )
     );
   };
 
   const [{ isOver: isOverIncomplete }, dropIncomplete] = useDrop(() => ({
     accept: "TODO",
-    drop: (item: { id: number; completed: boolean }) => handleDrop(item.id, item.completed),
-    collect: (monitor) => ({
+    drop: (item: { id: number; completed: boolean }) =>
+      handleDrop(item.id, item.completed),
+    collect: (monitor: any) => ({
       isOver: monitor.isOver(),
     }),
   }));
 
   const [{ isOver: isOverCompleted }, dropCompleted] = useDrop(() => ({
     accept: "TODO",
-    drop: (item: { id: number; completed: boolean }) => handleDrop(item.id, item.completed),
+    drop: (item: { id: number; completed: boolean }) =>
+      handleDrop(item.id, item.completed),
     collect: (monitor) => ({
       isOver: monitor.isOver(),
     }),
@@ -36,18 +40,40 @@ const Todolist = () => {
 
   return (
     <div className="container">
-      <div className="div1" ref={dropIncomplete} style={{ background: isOverIncomplete ? "#ddd" : "white" }}>
+      <div
+        className="div1"
+        ref={dropIncomplete}
+        style={{ background: isOverIncomplete ? "#ddd" : "white" }}
+      >
         <h2>Incomplete Todo</h2>
-        {todo.filter((t: Todo) => !t.completed).map((t: Todo) => (
-          <DraggableTodo key={t.id} id={t.id} text={t.todo} completed={t.completed} />
-        ))}
+        {todo
+          .filter((t: Todo) => !t.completed)
+          .map((t: Todo) => (
+            <DraggableTodo
+              key={t.id}
+              id={t.id}
+              text={t.todo}
+              completed={t.completed}
+            />
+          ))}
       </div>
 
-      <div className="div2" ref={dropCompleted} style={{ background: isOverCompleted ? "#ddd" : "white" }}>
+      <div
+        className="div2"
+        ref={dropCompleted}
+        style={{ background: isOverCompleted ? "#ddd" : "white" }}
+      >
         <h2>Completed Todo</h2>
-        {todo.filter((t: Todo) => t.completed).map((t: Todo) => (
-          <DraggableTodo key={t.id} id={t.id} text={t.todo} completed={t.completed} />
-        ))}
+        {todo
+          .filter((t: Todo) => t.completed)
+          .map((t: Todo) => (
+            <DraggableTodo
+              key={t.id}
+              id={t.id}
+              text={t.todo}
+              completed={t.completed}
+            />
+          ))}
       </div>
     </div>
   );
