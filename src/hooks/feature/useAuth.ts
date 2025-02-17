@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router";
 import API_KEYS from "../../api/keys";
+import { useContext } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const useAuth = () => {
   const navigate = useNavigate();
+  const { setIsUser }: any = useContext(UserContext);
   const handleRegister = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     window.localStorage.clear();
@@ -41,6 +44,7 @@ const useAuth = () => {
       .then((data) => {
         localStorage.setItem("token", data.token || "");
         navigate("/employees");
+        setIsUser(true);
       });
   };
 

@@ -2,29 +2,18 @@ import { Box, CircularProgress, Typography } from "@mui/material";
 import EmployeeList from "../features/employees/EmployeeList";
 import API_KEYS from "../../api/keys";
 import useGetRequest from "../../hooks/useApiRequest";
+import { useContext, useEffect } from "react";
+import { UserContext } from "../../Context/UserContext";
 
 const Employees = () => {
-  const {
-    data: employees,
-    loading,
-    error,
-  } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
-  // const getData = async () => {
-  //   const res = await securedFetch(
-  //     `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`,
-  //     {
-  //       body: JSON.stringify({}),
-  //     }
-  //   );
-
-  //   const data = await res.json();
-
-  //   console.log(data);
-  // };
-
-  // useEffect(() => {
-  //   getData();
-  // }, []);
+  const { isUser }: any = useContext(UserContext);
+  console.log(isUser);
+  const { data, loading, error, getData }: any = useGetRequest(
+    `${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`
+  );
+  useEffect(() => {
+    getData();
+  }, []);
 
   if (loading) {
     return (
@@ -40,10 +29,16 @@ const Employees = () => {
     return <Typography>Error: {error.message}</Typography>;
   }
 
+  const onDeleteEmployee = (employeeId: any) => {
+    const updatedEmployees = data.filter(
+      (employee: any) => employee.id !== employeeId
+    );
+    getData(updatedEmployees);
+  };
+
   return (
     <Box>
-      <Typography variant="h2">Employees</Typography>
-      <EmployeeList employees={employees} />
+      <EmployeeList employees={data} onDeleteEmployee={onDeleteEmployee} />
     </Box>
   );
 };

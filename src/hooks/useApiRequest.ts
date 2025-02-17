@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-const useApiRequest = (url: string, method = "GET", options = {}) => {
-  const [data, setData] = useState<any>(null);
+const useApiRequest = (url: string, method = "GET") => {
+  const [data, setData] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<any>(null);
 
-  const getData = async () => {
+  const getData = async (options: any = {}) => {
     setLoading(true);
     const token = window.localStorage.getItem("token");
     const res = await fetch(url, {
@@ -18,20 +17,29 @@ const useApiRequest = (url: string, method = "GET", options = {}) => {
     });
 
     const data = await res.json();
-
     setData(data);
     setLoading(false);
   };
 
-  useEffect(() => {
-    try {
-      getData();
-    } catch (error) {
-      setError(error);
-    }
-  }, [url]);
+  const deleteData = async () => {
+    const token = window.localStorage.getItem("token");
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return { data, loading, error };
+    if (res.ok) {
+      return true;
+    } else {
+      const error = await res.json();
+      throw new Error(error.message || "Failed to delete employee");
+    }
+  };
+
+  return { data, loading, getData, deleteData };
 };
 
 export default useApiRequest;
