@@ -4,6 +4,7 @@ import PrivateRoute from "./PrivateRoute";
 import AddEmployee from "../employees/AddEmployee";
 import { useContext } from "react";
 import { UserContext } from "../../../context/UserContext";
+import Department from "../../pages/Department";
 
 const Router = () => {
   const {isUser}:any = useContext(UserContext)
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="/employees/:id" element={<Employees />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/addEmployee" element={<AddEmployee />} />
+        <Route path="/dipartment" element={<Department />} />
       </Route>
     </Routes>
   );

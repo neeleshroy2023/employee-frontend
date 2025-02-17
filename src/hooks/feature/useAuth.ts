@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 
 const useAuth = () => {
-  const {isUser, setIsUser}:any = useContext(UserContext)
+  const {setIsUser}:any = useContext(UserContext)
   const [err, setError] = useState(false);
   const navigate = useNavigate();
   const handleRegister = (e: React.BaseSyntheticEvent) => {
@@ -56,8 +56,7 @@ const useAuth = () => {
           setIsUser(true);
           navigate("/employees");
         }
-        console.log(isUser);
-        // navigate("/employees");
+         // navigate("/employees");
       });
   };
 
