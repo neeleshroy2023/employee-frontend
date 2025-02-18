@@ -26,7 +26,6 @@ const Employees = () => {
   } = useGetRequest(`${import.meta.env.VITE_HOST_URL}${API_KEYS.employees}`);
 
   useEffect(() => {
-    console.log(pathname);
     const fn = async () => {
       await getData();
     };

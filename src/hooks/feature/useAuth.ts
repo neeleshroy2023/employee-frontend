@@ -48,7 +48,6 @@ const useAuth = () => {
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem("token", data.token || "");
-        console.log(data);
         if(data?.error){
           setIsUser(false);
         }

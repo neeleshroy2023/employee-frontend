@@ -11,14 +11,10 @@ import {
 import { useLocation } from "react-router";
 import theme from "../../theme";
 import useAuth from "../../hooks/feature/useAuth";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
 
 const Login = () => {
   const location = useLocation();
   const { handleLogin } = useAuth();
-  const {isUser}:any = useContext(UserContext)
-  console.log(isUser)
   const { email } = location.state || { email: "" };
   return (
     <Container maxWidth="xl">

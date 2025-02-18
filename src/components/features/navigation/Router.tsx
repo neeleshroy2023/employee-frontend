@@ -9,7 +9,6 @@ import Department from "../../pages/Department";
 const Router = () => {
   const {isUser}:any = useContext(UserContext)
   
-  console.log(isUser)
   return (
     <Routes>
       <Route index element={isUser ? <Navigate to="/employees" /> : <LandingPage />} />
